@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weather_nav_graph"
+    app:startDestination="@id/welcomeScreen">
+
+    <fragment
+        android:id="@+id/welcomeScreen"
+        android:name="com.example.presentation.screens.WelcomeScreen"
+        android:label="WelcomeScreen" >
+        <action
+            android:id="@+id/action_welcomeScreen_to_weatherScreen"
+            app:destination="@id/weatherScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherScreen"
+        android:name="com.example.presentation.screens.WeatherScreen"
+        android:label="WeatherScreen" />
+</navigation>
