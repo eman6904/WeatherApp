@@ -45,4 +45,6 @@ public class WeatherIconMapper {
        return weatherCodeToIcon.get(weatherCode);
 
     }
+
+
 }

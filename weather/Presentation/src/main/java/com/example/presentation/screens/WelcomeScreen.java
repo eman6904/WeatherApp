@@ -17,11 +17,13 @@ import android.widget.LinearLayout;
 
 import com.example.*;
 import com.example.presentation.R;
+import com.example.presentation.databinding.FragmentWeatherScreenBinding;
+import com.example.presentation.databinding.FragmentWelcomeScreenBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 
 public class WelcomeScreen extends Fragment {
-
+   private FragmentWelcomeScreenBinding binding;
 
     public WelcomeScreen() {
         // Required empty public constructor
@@ -37,11 +39,10 @@ public class WelcomeScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_welcome_screen, container, false);
+        binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
 
-        Button btn = view.findViewById(R.id.startBtn);
         NavController navController = NavHostFragment.findNavController(this);
-        btn.setOnClickListener(new View.OnClickListener() {
+        binding.startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -51,7 +52,7 @@ public class WelcomeScreen extends Fragment {
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
 }
