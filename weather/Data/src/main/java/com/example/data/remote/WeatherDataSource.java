@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface WeatherDataSource {
-    @GET("forecast")
+    @GET("forecast?")
     Call<WeatherResponse> getForecast(
             @Query("latitude") double latitude,
             @Query("longitude") double longitude,

@@ -1,5 +1,7 @@
 package com.example.data.mapper;
 
+import android.util.Log;
+
 import com.example.domain.model.Daily;
 import com.example.domain.model.Hourly;
 import com.example.domain.model.Current;
@@ -9,7 +11,10 @@ import com.example.domain.model.WeatherResponse;
 public class WeatherMapper {
 
     public static com.example.domain.model.WeatherResponse toDomainModel(com.example.data.model.WeatherResponse response) {
-        if (response == null) return null;
+        if (response == null) {
+
+            return null;
+        }
 
         com.example.domain.model.Current current = CurrentMapper.toDomain(response.current);
         com.example.domain.model.Daily daily = DailyMapper.toDomain(response.daily);

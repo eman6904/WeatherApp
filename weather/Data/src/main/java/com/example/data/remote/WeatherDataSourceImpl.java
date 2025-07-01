@@ -8,8 +8,8 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
 
     private final WeatherDataSource api;
 
-    public WeatherDataSourceImpl(String baseUrl) {
-        this.api = ApiClient.createService(baseUrl, WeatherDataSource.class);
+    public WeatherDataSourceImpl() {
+        this.api = ApiClient.createService(HttpRoutes.ForecastWeather.GET_FORECAST, WeatherDataSource.class);
     }
 
     @Override

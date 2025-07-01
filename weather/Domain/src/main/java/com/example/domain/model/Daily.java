@@ -12,5 +12,13 @@ public class Daily {
     public List<Integer> weathercode;
 
     public Daily(List<String> time, List<Double> temperature2mMax, List<Double> temperature2mMin, List<String> sunrise, List<String> sunset, List<Double> uvIndexMax, List<Integer> weathercode) {
+
+        this.time = time;
+        this.temperature_2m_max = temperature2mMax;
+        this.temperature_2m_min = temperature2mMin;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
+        this.uv_index_max = uvIndexMax;
+        this.weathercode = weathercode;
     }
 }

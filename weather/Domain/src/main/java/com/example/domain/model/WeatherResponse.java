@@ -7,6 +7,10 @@ public class WeatherResponse {
     private Daily daily;
 
     public WeatherResponse(Current current, Daily daily, Hourly hourly) {
+        this.current = current;
+        this.daily = daily;
+        this.hourly = hourly;
+
     }
 
     public Current getCurrent() {

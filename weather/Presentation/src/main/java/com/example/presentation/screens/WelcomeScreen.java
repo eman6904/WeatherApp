@@ -1,25 +1,25 @@
 package com.example.presentation.screens;
 
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.example.*;
+import com.example.data.remote.WeatherDataSourceImpl;
+import com.example.data.repoImpl.WeatherRepositoryImpl;
+import com.example.domain.model.WeatherResponse;
+import com.example.domain.useCase.WeatherUseCase;
 import com.example.presentation.R;
-import com.example.presentation.databinding.FragmentWeatherScreenBinding;
 import com.example.presentation.databinding.FragmentWelcomeScreenBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.example.presentation.viewModel.weather.WeatherViewModel;
+import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
 
 
 public class WelcomeScreen extends Fragment {
@@ -41,12 +41,34 @@ public class WelcomeScreen extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
 
+        WeatherUseCase useCase = new WeatherUseCase(new WeatherRepositoryImpl(new WeatherDataSourceImpl()));
+        WeatherViewModelFactory factory = new WeatherViewModelFactory(useCase);
+        WeatherViewModel viewModel = new ViewModelProvider(this, factory).get(WeatherViewModel.class);
+
+        viewModel.getWeatherLiveData().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                   Log.d("WeatherDebug",result.status.toString());
+                    break;
+
+                case SUCCESS:
+                    Log.d("WeatherDebug",result.data.getCurrent().time);
+                    WeatherResponse data = result.data;
+                    break;
+
+                case ERROR:
+                    Log.d("WeatherDebug",result.error);
+                    break;
+            }
+        });
+
         NavController navController = NavHostFragment.findNavController(this);
         binding.startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                navController.navigate(R.id.action_welcomeScreen_to_weatherScreen);
+               // navController.navigate(R.id.action_welcomeScreen_to_weatherScreen);
+                viewModel.fetchWeather(30.03, 31.21);
 
             }
         });

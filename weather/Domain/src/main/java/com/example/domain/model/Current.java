@@ -7,5 +7,9 @@ public class Current {
     public int weathercode;
 
     public Current(String time, int interval, double temperature2m, int weathercode) {
+        this.time = time;
+        this.interval = interval;
+        this.temperature_2m = temperature2m;
+        this.weathercode = weathercode;
     }
 }

@@ -8,7 +8,7 @@ public class HttpRoutes {
     private static final String AIR_QUALITY_BASE_URL = "https://air-quality-api.open-meteo.com/" + VERSION;
 
     public static class ForecastWeather {
-        public static final String GET_FORECAST = WEATHER_BASE_URL + "/forecast?";
+        public static final String GET_FORECAST = WEATHER_BASE_URL + "/";
     }
 
     public static class AirQuality {
