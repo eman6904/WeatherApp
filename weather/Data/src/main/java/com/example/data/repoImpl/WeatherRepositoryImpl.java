@@ -4,8 +4,7 @@ import android.util.Log;
 
 import com.example.data.mapper.WeatherMapper;
 import com.example.domain.model.Result;
-import com.example.domain.model.WeatherResponse;
-import com.example.data.remote.WeatherDataSource;
+import com.example.data.remote.dataSource.WeatherDataSource;
 import com.example.domain.repo.WeatherRepository;
 
 

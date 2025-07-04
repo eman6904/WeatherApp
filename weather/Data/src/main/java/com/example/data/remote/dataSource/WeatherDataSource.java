@@ -1,4 +1,4 @@
-package com.example.data.remote;
+package com.example.data.remote.dataSource;
 
 import com.example.data.model.WeatherResponse;
 

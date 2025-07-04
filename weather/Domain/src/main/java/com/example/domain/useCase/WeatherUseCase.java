@@ -6,6 +6,7 @@ import com.example.domain.repo.WeatherRepository;
 
 import java.io.IOException;
 
+
 public class WeatherUseCase {
     private final WeatherRepository weatherRepository;
 

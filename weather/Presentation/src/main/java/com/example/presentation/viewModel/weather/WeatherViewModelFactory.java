@@ -2,6 +2,8 @@ package com.example.presentation.viewModel.weather;
 
 import com.example.domain.useCase.WeatherUseCase;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,6 +12,7 @@ public class WeatherViewModelFactory implements ViewModelProvider.Factory {
 
     private final WeatherUseCase weatherUseCase;
 
+    @Inject
     public WeatherViewModelFactory(WeatherUseCase weatherUseCase) {
         this.weatherUseCase = weatherUseCase;
     }

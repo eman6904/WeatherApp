@@ -37,5 +37,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     //converter
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    def dagger_version = "2.50"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
 
 }
