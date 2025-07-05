@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class CohereRepositoryImpl implements CohereRepo {
+
     private final CohereApiDataSource dataSource;
 
     public CohereRepositoryImpl(CohereApiDataSource dataSource) {

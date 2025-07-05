@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class CohereViewModelFactory implements ViewModelProvider.Factory {
+
     private final CohereUseCase cohereUseCase;
 
     @Inject

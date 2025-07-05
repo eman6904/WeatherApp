@@ -13,7 +13,7 @@ public class HttpRoutes {
     }
 
     public static class AirQuality {
-        public static final String GET_AIR_QUALITY = AIR_QUALITY_BASE_URL + "/air-quality?";
+        public static final String GET_AIR_QUALITY = AIR_QUALITY_BASE_URL + "/";
     }
     public static class CohereApi{
         public static final String GET_COHERE_AI_BASE_URL = COHERE_AI_BASE_URL;
