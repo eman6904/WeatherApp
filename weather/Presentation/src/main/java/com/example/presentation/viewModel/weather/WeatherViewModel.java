@@ -3,8 +3,8 @@ package com.example.presentation.viewModel.weather;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.domain.model.Result;
-import com.example.domain.model.WeatherResponse;
+import com.example.domain.model.weatherModels.Result;
+import com.example.domain.model.weatherModels.WeatherResponse;
 import com.example.domain.useCase.WeatherUseCase;
 
 import java.util.concurrent.ExecutorService;
@@ -28,6 +28,7 @@ public class WeatherViewModel extends ViewModel {
     public LiveData<Result<WeatherResponse>> getWeatherLiveData() {
         return weatherLiveData;
     }
+
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 

@@ -1,4 +1,4 @@
-package com.example.data.model;
+package com.example.data.model.weatherModels;
 
 public class WeatherResponse {
     public double latitude;

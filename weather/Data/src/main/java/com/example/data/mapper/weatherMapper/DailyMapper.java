@@ -1,10 +1,12 @@
-package com.example.data.mapper;
+package com.example.data.mapper.weatherMapper;
+
+import com.example.data.model.weatherModels.Daily;
 
 public class DailyMapper {
-    public static com.example.domain.model.Daily toDomain(com.example.data.model.Daily dataDaily) {
+    public static com.example.domain.model.weatherModels.Daily toDomain(Daily dataDaily) {
         if (dataDaily == null) return null;
 
-        return new com.example.domain.model.Daily(
+        return new com.example.domain.model.weatherModels.Daily(
                 dataDaily.time,
                 dataDaily.temperature_2m_max,
                 dataDaily.temperature_2m_min,

@@ -2,8 +2,9 @@ package com.example.data.repoImpl;
 
 import android.util.Log;
 
-import com.example.data.mapper.WeatherMapper;
-import com.example.domain.model.Result;
+import com.example.data.mapper.weatherMapper.WeatherMapper;
+import com.example.data.model.weatherModels.WeatherResponse;
+import com.example.domain.model.weatherModels.Result;
 import com.example.data.remote.dataSource.WeatherDataSource;
 import com.example.domain.repo.WeatherRepository;
 
@@ -24,7 +25,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
     public Result getWeather(double latitude, double longitude) {
         try {
 
-            Response<com.example.data.model.WeatherResponse> response = dataSource.getForecast(
+            Response<WeatherResponse> response = dataSource.getForecast(
                     latitude,
                     longitude,
                     "temperature_2m,weathercode",

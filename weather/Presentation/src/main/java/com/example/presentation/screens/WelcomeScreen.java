@@ -15,16 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.domain.model.WeatherResponse;
+import com.example.domain.model.weatherModels.WeatherResponse;
 import com.example.presentation.databinding.FragmentWelcomeScreenBinding;
+import com.example.presentation.dependency.CohereFragmentDependencies;
 import com.example.presentation.dependency.WeatherFragmentDependencies;
+import com.example.presentation.viewModel.CohereApi.CohereViewModel;
+import com.example.presentation.viewModel.CohereApi.CohereViewModelFactory;
 import com.example.presentation.viewModel.weather.WeatherViewModel;
 import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
 
 
 public class WelcomeScreen extends Fragment {
    private FragmentWelcomeScreenBinding binding;
-   private WeatherViewModel viewModel;
+   private CohereViewModel viewModel;
     public WelcomeScreen() {
         // Required empty public constructor
     }
@@ -32,16 +35,16 @@ public class WelcomeScreen extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context.getApplicationContext() instanceof WeatherFragmentDependencies) {
-            WeatherViewModelFactory factory = ((WeatherFragmentDependencies) context.getApplicationContext())
-                    .provideWeatherViewModelFactory();
+        if (context.getApplicationContext() instanceof CohereFragmentDependencies) {
+            CohereViewModelFactory factory = ((CohereFragmentDependencies) context.getApplicationContext())
+                    .provideCohereViewModelFactory();
 
-            viewModel = new ViewModelProvider(this, factory).get(WeatherViewModel.class);
+            viewModel = new ViewModelProvider(this, factory).get(CohereViewModel.class);
         } else {
             Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
 
             viewModel = new ViewModelProvider(this,
-                    new ViewModelProvider.NewInstanceFactory()).get(WeatherViewModel.class);
+                    new ViewModelProvider.NewInstanceFactory()).get(CohereViewModel.class);
         }
     }
     @Override
@@ -56,15 +59,15 @@ public class WelcomeScreen extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
 
-        viewModel.getWeatherLiveData().observe(getViewLifecycleOwner(), result -> {
+        viewModel.getCohereLiveData().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
                    Log.d("WeatherDebug",result.status.toString());
                     break;
 
                 case SUCCESS:
-                    Log.d("WeatherDebug",result.data.getCurrent().time);
-                    WeatherResponse data = result.data;
+                    Log.d("WeatherDebug",result.data.text.toString());
+
                     break;
 
                 case ERROR:
@@ -79,7 +82,7 @@ public class WelcomeScreen extends Fragment {
             public void onClick(View v) {
 
                // navController.navigate(R.id.action_welcomeScreen_to_weatherScreen);
-                viewModel.fetchWeather(30.03, 31.21);
+                viewModel.fetchAIAdvice("The weather is sunny with 33°C. Suggest detailed activities, what to eat and drink, and what to wear.", 0.9);
 
             }
         });

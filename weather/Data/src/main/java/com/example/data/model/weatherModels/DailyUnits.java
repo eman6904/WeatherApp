@@ -1,4 +1,4 @@
-package com.example.data.model;
+package com.example.data.model.weatherModels;
 
 public class DailyUnits {
     public String time;

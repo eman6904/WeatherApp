@@ -1,10 +1,7 @@
 package com.example.domain.useCase;
 
-import com.example.domain.model.Result;
-import com.example.domain.model.WeatherResponse;
+import com.example.domain.model.weatherModels.Result;
 import com.example.domain.repo.WeatherRepository;
-
-import java.io.IOException;
 
 
 public class WeatherUseCase {

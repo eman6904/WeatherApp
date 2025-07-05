@@ -1,10 +1,12 @@
-package com.example.data.mapper;
+package com.example.data.mapper.weatherMapper;
+
+import com.example.data.model.weatherModels.Hourly;
 
 public class HourlyMapper {
-    public static com.example.domain.model.Hourly toDomain(com.example.data.model.Hourly dataHourly) {
+    public static com.example.domain.model.weatherModels.Hourly toDomain(Hourly dataHourly) {
         if (dataHourly == null) return null;
 
-        return new com.example.domain.model.Hourly(
+        return new com.example.domain.model.weatherModels.Hourly(
                 dataHourly.time,
                 dataHourly.temperature_2m,
                 dataHourly.weathercode,

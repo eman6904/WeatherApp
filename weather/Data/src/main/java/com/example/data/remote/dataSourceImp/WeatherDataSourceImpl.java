@@ -1,6 +1,6 @@
 package com.example.data.remote.dataSourceImp;
 
-import com.example.data.model.WeatherResponse;
+import com.example.data.model.weatherModels.WeatherResponse;
 import com.example.data.remote.ApiClient;
 import com.example.data.remote.HttpRoutes;
 import com.example.data.remote.dataSource.WeatherDataSource;

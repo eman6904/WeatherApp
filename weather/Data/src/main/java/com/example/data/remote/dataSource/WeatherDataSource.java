@@ -1,6 +1,6 @@
 package com.example.data.remote.dataSource;
 
-import com.example.data.model.WeatherResponse;
+import com.example.data.model.weatherModels.WeatherResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
