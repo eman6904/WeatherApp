@@ -1,4 +1,4 @@
-package com.example.weatherapp.di;
+package com.example.weatherapp.di.module;
 
 import com.example.data.remote.dataSource.WeatherDataSource;
 import com.example.data.remote.dataSourceImp.WeatherDataSourceImpl;

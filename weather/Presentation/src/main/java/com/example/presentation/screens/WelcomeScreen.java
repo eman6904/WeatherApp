@@ -1,36 +1,41 @@
 package com.example.presentation.screens;
 
+
+import android.Manifest;
 import android.content.Context;
+
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.domain.model.weatherModels.WeatherResponse;
+
 import com.example.presentation.databinding.FragmentWelcomeScreenBinding;
-import com.example.presentation.dependency.AirQualityFragmentDependencies;
-import com.example.presentation.dependency.CohereFragmentDependencies;
-import com.example.presentation.dependency.WeatherFragmentDependencies;
-import com.example.presentation.viewModel.CohereApi.CohereViewModel;
-import com.example.presentation.viewModel.CohereApi.CohereViewModelFactory;
-import com.example.presentation.viewModel.airQuality.AirQualityViewModel;
-import com.example.presentation.viewModel.airQuality.AirQualityViewModelFactory;
-import com.example.presentation.viewModel.weather.WeatherViewModel;
-import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
+
+import com.example.presentation.dependency.LocationFragmentDependencies;
+
+
+import com.example.presentation.viewModel.location.LocationViewModel;
+import com.example.presentation.viewModel.location.LocationViewModelFactory;
 
 
 public class WelcomeScreen extends Fragment {
    private FragmentWelcomeScreenBinding binding;
-   private AirQualityViewModel airQualityViewModel;
+   private LocationViewModel viewModel;
     public WelcomeScreen() {
         // Required empty public constructor
     }
@@ -38,17 +43,16 @@ public class WelcomeScreen extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context.getApplicationContext() instanceof AirQualityFragmentDependencies) {
-            AirQualityViewModelFactory factory =
-                    ((AirQualityFragmentDependencies) context.getApplicationContext())
-                            .provideAirQualityViewModelFactory();
-
-            airQualityViewModel = new ViewModelProvider(this, factory).get(AirQualityViewModel.class);
+        if (context.getApplicationContext() instanceof LocationFragmentDependencies) {
+            LocationViewModelFactory factory =
+                    ((LocationFragmentDependencies) context.getApplicationContext())
+                            .provideLocationViewModelFactory();
+            viewModel = new ViewModelProvider(this, factory).get(LocationViewModel.class);
         } else {
             Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
 
-            airQualityViewModel = new ViewModelProvider(this,
-                    new ViewModelProvider.NewInstanceFactory()).get(AirQualityViewModel.class);
+            viewModel = new ViewModelProvider(this,
+                    new ViewModelProvider.NewInstanceFactory()).get(LocationViewModel.class);
         }
 
     }
@@ -64,14 +68,14 @@ public class WelcomeScreen extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
 
-        airQualityViewModel.getAirQualityLiveData().observe(getViewLifecycleOwner(), result -> {
+        viewModel.getLocationState().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
                    Log.d("WeatherDebug",result.status.toString());
                     break;
 
                 case SUCCESS:
-                    Log.d("WeatherDebug",result.data.time.toString());
+                    Log.d("WeatherDebug",result.data.toString());
 
                     break;
 
@@ -87,13 +91,23 @@ public class WelcomeScreen extends Fragment {
             public void onClick(View v) {
 
                // navController.navigate(R.id.action_welcomeScreen_to_weatherScreen);
-                airQualityViewModel.fetchAirQuality(30.03,31.21);
+               getCurrentLocation();
 
             }
         });
 
 
         return binding.getRoot();
+    }
+
+    private void getCurrentLocation(){
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        else {
+            viewModel.fetchLocation();
+        }
     }
 
 }

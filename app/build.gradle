@@ -38,6 +38,8 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation project(':weather:Presentation')
+    implementation project(':weather:Data')
+    implementation project(':weather:Domain')
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

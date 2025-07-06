@@ -42,4 +42,6 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
 
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
+
 }

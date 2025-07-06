@@ -30,8 +30,7 @@ android {
 
 dependencies {
 
-    api project(':weather:Domain')
-    api project(':weather:Data')
+    implementation project(':weather:Domain')
     implementation libs.appcompat
     implementation libs.material
     testImplementation libs.junit
