@@ -31,10 +31,16 @@ public class AirQualityViewModel extends ViewModel {
         return airQualityLiveData;
     }
 
+    private final MutableLiveData<Boolean> isReady = new MutableLiveData<Boolean>(false);
+    public LiveData<Boolean> getAirQualityResponseStatus() {
+        return isReady;
+    }
+
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public void fetchAirQuality(double lat, double lon) {
+
         airQualityLiveData.postValue(Result.loading());
 
         executor.execute(() -> {
@@ -42,6 +48,11 @@ public class AirQualityViewModel extends ViewModel {
 
             mainHandler.post(() -> airQualityLiveData.setValue(result));
         });
+    }
+
+    public void setAirQualityStatus(Boolean status){
+
+        isReady.postValue(status);
     }
 }
 
