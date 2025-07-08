@@ -7,7 +7,7 @@ import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
 import com.example.weatherapp.di.module.AirQualityModule;
 import com.example.weatherapp.di.module.CohereModule;
 import com.example.weatherapp.di.module.WeatherModule;
-import com.example.weatherapp.di.module.locationModule.LocationModule;
+import com.example.weatherapp.di.module.LocationModule;
 
 import javax.inject.Singleton;
 

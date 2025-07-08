@@ -22,14 +22,14 @@
 
         <TextView
             android:id="@+id/weather_temp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="4dp"
             android:gravity="center"
-            android:text="4\u00B0 C"
+            android:text="40.5\u00B0 C"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="10sp" />
         <ImageView
             android:id="@+id/weather_icon"
             android:layout_width="50dp"
@@ -38,13 +38,13 @@
 
         <TextView
             android:id="@+id/forecast_time"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="4dp"
             android:gravity="center"
-            android:text="Mon"
+            android:text="01:00 am jj"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="8sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

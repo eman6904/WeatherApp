@@ -6,49 +6,48 @@
 
     <!-- المحتوى الأساسي -->
     <FrameLayout
+        android:id="@+id/contentLayoutLoadingMode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_background">
+    </FrameLayout>
+    <FrameLayout
         android:id="@+id/contentLayout"
         android:background="@drawable/gradient_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.1"
+                android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:id="@+id/weatherStatusIcon"
+                    android:visibility="gone"
+                    android:layout_width="180dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center|bottom"
                     app:srcCompat="@drawable/w_ic25" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:gravity="top"
-                android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/temp"
+                    android:id="@+id/currTemp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
+                    android:visibility="gone"
                     android:gravity="center"
-                    android:textSize="40sp"
+                    android:textSize="28sp"
                     android:text="19\u00B0 C" />
-                <TextView
-                    android:id="@+id/precipitation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:text="precipitations" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,24 +59,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:layout_marginEnd="20dp"
+                        android:visibility="gone"
+                        android:layout_marginEnd="12dp"
                         android:text="Max: 3\u00B0 C" />
                     <TextView
                         android:id="@+id/min_tem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:layout_marginStart="20dp"
+                        android:visibility="gone"
+                        android:layout_marginStart="12dp"
                         android:text="Min: 4\u00B0 C" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3.5"
-                android:gravity="center">
+                android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/home"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:layout_gravity="top"
@@ -88,6 +88,7 @@
     </FrameLayout>
 
     <!-- Bottom Sheet -->
+
     <LinearLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
@@ -95,7 +96,23 @@
         android:orientation="vertical"
         android:background="@drawable/bottom_sheet_background"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/bottomSheetLoadingMode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bottom_sheet_background">
+            </FrameLayout>
+            <LinearLayout
+                android:id="@+id/bottomSheetContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/todayLayout"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -109,6 +126,7 @@
                 android:layout_marginStart="20dp"
                 android:textSize="18sp"/>
             <TextView
+                android:id="@+id/today"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -120,12 +138,16 @@
                 android:textSize="18sp"/>
         </LinearLayout>
         <View
+            android:id="@+id/divider"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/endColor">
         </View>
         <LinearLayout
+            android:id="@+id/hourlyWeatherLayout"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <ImageView
@@ -153,6 +175,8 @@
 
         </LinearLayout>
         <androidx.cardview.widget.CardView
+            android:id="@+id/airQualityLayout"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -165,7 +189,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:padding="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/rectangle_without_border"
@@ -192,37 +216,65 @@
            </LinearLayout>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/airQualityDes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:padding="8dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:text="Moderate - Acceptable Air Quality" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@drawable/gradient_background">
             </View>
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/textView4"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/less"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:text="See more" />
-                <ImageView
-                    android:id="@+id/right2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/cherven_right" />
-            </LinearLayout>
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:text="See less" />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:padding="8dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/see_less_icon" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:text="See more" />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/see_more_icon" />
+                </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
         </androidx.cardview.widget.CardView>
         <LinearLayout
@@ -232,6 +284,8 @@
             android:paddingStart="20dp"
             android:orientation="horizontal">
             <androidx.cardview.widget.CardView
+                android:id="@+id/sunStatusLayout"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -287,7 +341,9 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/uv_layout"
                 android:layout_width="0dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:cardElevation="5dp"
@@ -358,6 +414,8 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -31,11 +31,6 @@ public class AirQualityViewModel extends ViewModel {
         return airQualityLiveData;
     }
 
-    private final MutableLiveData<Boolean> isReady = new MutableLiveData<Boolean>(false);
-    public LiveData<Boolean> getAirQualityResponseStatus() {
-        return isReady;
-    }
-
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -50,9 +45,5 @@ public class AirQualityViewModel extends ViewModel {
         });
     }
 
-    public void setAirQualityStatus(Boolean status){
-
-        isReady.postValue(status);
-    }
 }
 

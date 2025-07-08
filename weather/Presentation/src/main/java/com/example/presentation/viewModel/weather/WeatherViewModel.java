@@ -38,10 +38,7 @@ public class WeatherViewModel extends ViewModel {
         return weatherLiveData;
     }
 
-    private final MutableLiveData<Boolean> isReady = new MutableLiveData<Boolean>(false);
-    public LiveData<Boolean> getWeatherResponseStatus() {
-        return isReady;
-    }
+
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -59,9 +56,5 @@ public class WeatherViewModel extends ViewModel {
         });
     }
 
-    public void setWeatherStatus(Boolean status){
-
-        isReady.postValue(status);
-    }
 
 }

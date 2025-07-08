@@ -26,9 +26,10 @@ public class LocationViewModel extends ViewModel {
     }
 
     public void fetchLocation() {
+
         locationState.setValue(Result.loading());
 
-        locationRepo.getCurrentLocation(new LocationRepo.LocationCallback() {
+        locationRepo.getCurrentLocation(new LocationRepo.LocationCallback2() {
             @Override
             public void onSuccess(Pair<Double, Double> location) {
                 locationState.setValue(Result.success(location));
@@ -40,6 +41,7 @@ public class LocationViewModel extends ViewModel {
             }
         });
     }
+
 }
 
 
