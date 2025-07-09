@@ -26,6 +26,7 @@ import com.example.presentation.R;
 import com.example.presentation.adapter.WeatherAdapter;
 import com.example.presentation.databinding.FragmentWeatherScreenBinding;
 import com.example.presentation.dependency.AirQualityFragmentDependencies;
+import com.example.presentation.dependency.CohereFragmentDependencies;
 import com.example.presentation.dependency.WeatherFragmentDependencies;
 import com.example.presentation.uiModels.AirQualityItems;
 import com.example.presentation.uiModels.WeatherModel;
@@ -35,6 +36,8 @@ import com.example.presentation.utils.TimeFormatter;
 import com.example.presentation.utils.UvIndexDescription;
 import com.example.presentation.utils.WeatherHelper;
 import com.example.presentation.utils.WeatherIconMapper;
+import com.example.presentation.viewModel.CohereApi.CohereViewModel;
+import com.example.presentation.viewModel.CohereApi.CohereViewModelFactory;
 import com.example.presentation.viewModel.airQuality.AirQualityViewModel;
 import com.example.presentation.viewModel.airQuality.AirQualityViewModelFactory;
 import com.example.presentation.viewModel.weather.WeatherViewModel;
@@ -42,7 +45,6 @@ import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.example.domain.model.weatherModels.Result.Status.SUCCESS;
@@ -53,6 +55,7 @@ public class WeatherScreen extends Fragment {
 
     private AirQualityViewModel airQualityViewModel;
     private WeatherViewModel weatherViewModel;
+    private CohereViewModel aiAdviceViewModel;
     private double lat;
     private double lon;
     private int delay = 0;
@@ -69,6 +72,7 @@ public class WeatherScreen extends Fragment {
 
         provideWeatherViewModel(context);
         provideAirQualityViewModel(context);
+        provideAiAdviceViewModel(context);
     }
 
     @Override
@@ -87,6 +91,8 @@ public class WeatherScreen extends Fragment {
         observeWeather();
 
         observeAirQuality();
+
+        observeAiAdvice();
 
         Bundle args = getArguments();
         if (args != null) {
@@ -135,6 +141,20 @@ public class WeatherScreen extends Fragment {
 
             airQualityViewModel = new ViewModelProvider(this,
                     new ViewModelProvider.NewInstanceFactory()).get(AirQualityViewModel.class);
+        }
+    }
+    private void provideAiAdviceViewModel(Context context){
+
+        if (context.getApplicationContext() instanceof CohereFragmentDependencies) {
+            CohereViewModelFactory factory =
+                    ((CohereFragmentDependencies) context.getApplicationContext())
+                            .provideCohereViewModelFactory();
+            aiAdviceViewModel = new ViewModelProvider(this, factory).get(CohereViewModel.class);
+        } else {
+            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+
+            aiAdviceViewModel = new ViewModelProvider(this,
+                    new ViewModelProvider.NewInstanceFactory()).get(CohereViewModel.class);
         }
     }
     private void observeAirQuality(){
@@ -191,6 +211,26 @@ public class WeatherScreen extends Fragment {
             }
         });
     }
+    private void observeAiAdvice(){
+
+        aiAdviceViewModel.getCohereLiveData().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING: {
+
+                    break;
+                }
+
+                case SUCCESS:{
+                    binding.aiAdviceText.setText(result.data.text);
+                    break;
+                }
+
+                case ERROR:
+                    Log.d("WeatherDebug",result.error);
+                    break;
+            }
+        });
+    }
    private List<WeatherModel> getHourlyWeather(Hourly hourly){
        List<WeatherModel> weatherList = new ArrayList<>();
         for(int h = 1;h<=24;h++){
@@ -238,6 +278,7 @@ public class WeatherScreen extends Fragment {
         fadeInView(binding.airQualityLayout, delay += 120);
         fadeInView(binding.uvLayout, delay+=120);
         fadeInView(binding.sunStatusLayout, delay);
+        fadeInView(binding.aiAdvice, delay+=100);
 
 
         WeatherAdapter adapter = new WeatherAdapter(getHourlyWeather(weather.getHourly()));
@@ -294,6 +335,16 @@ public class WeatherScreen extends Fragment {
 
         binding.uvColor.setColorFilter(UvIndexDescription.getUvColor(weather.getDaily().uv_index_max.get(0)));
 
+        binding.startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aiAdviceViewModel.fetchAIAdvice("The weather is "+
+                        WeatherHelper.getWeatherDescription(weather.getCurrent().weathercode,weather.getCurrent().temperature_2m)+
+                        " Suggest detailed activities, what to eat and drink, and what to wear using emoji.",
+                        0.9
+                        );
+            }
+        });
 
 
     }
