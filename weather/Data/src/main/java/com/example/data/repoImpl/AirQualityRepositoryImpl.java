@@ -1,6 +1,6 @@
 package com.example.data.repoImpl;
 
-import com.example.data.mapper.airQualityMapper.AirQualityMapper;
+import com.example.data.mapper.airQualityMapper.AirQualityResponseMapper;
 import com.example.data.model.airQualityModels.AirQualityResponse;
 import com.example.data.remote.dataSource.AirQualityDataSource;
 import com.example.domain.model.weatherModels.Result;
@@ -29,7 +29,7 @@ public class AirQualityRepositoryImpl implements AirQualityRepo {
             ).execute();
 
             if (response.isSuccessful() && response.body() != null) {
-                return Result.success(AirQualityMapper.toDomainModel(response.body()));
+                return Result.success(AirQualityResponseMapper.toDomainModel(response.body()));
             } else {
                 return Result.error("API error");
             }

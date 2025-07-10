@@ -28,11 +28,14 @@ import com.example.presentation.databinding.FragmentWelcomeScreenBinding;
 import com.example.presentation.dependency.AirQualityFragmentDependencies;
 import com.example.presentation.dependency.LocationFragmentDependencies;
 
+import com.example.presentation.dependency.SearchCityFragmentDependencies;
 import com.example.presentation.dependency.WeatherFragmentDependencies;
 import com.example.presentation.viewModel.airQuality.AirQualityViewModel;
 import com.example.presentation.viewModel.airQuality.AirQualityViewModelFactory;
 import com.example.presentation.viewModel.location.LocationViewModel;
 import com.example.presentation.viewModel.location.LocationViewModelFactory;
+import com.example.presentation.viewModel.searchCity.SearchCityViewModel;
+import com.example.presentation.viewModel.searchCity.SearchCityViewModelFactory;
 import com.example.presentation.viewModel.weather.WeatherViewModel;
 import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
 
@@ -42,6 +45,7 @@ import static com.example.domain.model.weatherModels.Result.Status.SUCCESS;
 public class WelcomeScreen extends Fragment {
    private FragmentWelcomeScreenBinding binding;
    private LocationViewModel locationViewModel;
+   private SearchCityViewModel searchCityViewModel;
     NavController navController;
     public WelcomeScreen() {
         // Required empty public constructor
@@ -51,6 +55,7 @@ public class WelcomeScreen extends Fragment {
         super.onAttach(context);
 
         provideLocationViewModel(context);
+        provideSearchCityViewModel(context);
     }
 
     @Override
@@ -67,10 +72,14 @@ public class WelcomeScreen extends Fragment {
 
         observeLocation();
 
+        observeSearchCity();
+
         binding.startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               getCurrentLocation();
+
+                getCurrentLocation();
+               // searchCityViewModel.fetchCityCoordinates("f");
             }
         });
 
@@ -98,6 +107,19 @@ public class WelcomeScreen extends Fragment {
 
             locationViewModel = new ViewModelProvider(this,
                     new ViewModelProvider.NewInstanceFactory()).get(LocationViewModel.class);
+        }
+    }
+
+    private void provideSearchCityViewModel(Context context) {
+        if (context.getApplicationContext() instanceof SearchCityFragmentDependencies) {
+            SearchCityViewModelFactory factory =
+                    ((SearchCityFragmentDependencies) context.getApplicationContext())
+                            .provideSearchCityViewModelFactory();
+            searchCityViewModel = new ViewModelProvider(this, factory).get(SearchCityViewModel.class);
+        } else {
+            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+            searchCityViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory())
+                    .get(SearchCityViewModel.class);
         }
     }
 
@@ -130,7 +152,26 @@ public class WelcomeScreen extends Fragment {
             }
         });
     }
+    private void observeSearchCity() {
+        searchCityViewModel.getCityLiveData().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                    Log.d("WeatherDebug",result.status.toString());
 
+                    break;
+
+                case SUCCESS:
+                    Log.d("WeatherDebug",result.data.lat+"");
+
+                    break;
+
+                case ERROR:
+                    Log.d("WeatherDebug",result.error);
+
+                    break;
+            }
+        });
+    }
 
 
 }

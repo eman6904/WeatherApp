@@ -3,7 +3,7 @@ package com.example.presentation.viewModel.airQuality;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.domain.model.AirQualityResponse;
+import com.example.domain.model.airQualityModels.AirQualityResponse;
 import com.example.domain.model.weatherModels.Result;
 import com.example.domain.useCase.AirQualityUseCase;
 

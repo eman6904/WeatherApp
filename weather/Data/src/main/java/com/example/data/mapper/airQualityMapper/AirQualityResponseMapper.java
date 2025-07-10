@@ -1,12 +1,12 @@
 package com.example.data.mapper.airQualityMapper;
 
-import com.example.domain.model.AirQualityResponse;
+import com.example.domain.model.airQualityModels.AirQualityResponse;
 
 import java.util.ArrayList;
 
-public class AirQualityMapper {
+public class AirQualityResponseMapper {
 
-    public static com.example.domain.model.AirQualityResponse toDomainModel(com.example.data.model.airQualityModels.AirQualityResponse response) {
+    public static AirQualityResponse toDomainModel(com.example.data.model.airQualityModels.AirQualityResponse response) {
         if (response != null && response.hourly != null) {
             return new AirQualityResponse(
                     response.hourly.time,

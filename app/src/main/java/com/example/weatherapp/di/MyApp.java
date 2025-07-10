@@ -5,17 +5,22 @@ import android.app.Application;
 import com.example.presentation.dependency.AirQualityFragmentDependencies;
 import com.example.presentation.dependency.CohereFragmentDependencies;
 import com.example.presentation.dependency.LocationFragmentDependencies;
+import com.example.presentation.dependency.SearchCityFragmentDependencies;
 import com.example.presentation.dependency.WeatherFragmentDependencies;
 import com.example.presentation.viewModel.CohereApi.CohereViewModelFactory;
+import com.example.presentation.viewModel.searchCity.SearchCityViewModelFactory;
 import com.example.presentation.viewModel.airQuality.AirQualityViewModelFactory;
 import com.example.presentation.viewModel.location.LocationViewModelFactory;
 import com.example.presentation.viewModel.weather.WeatherViewModelFactory;
 import com.example.weatherapp.di.module.AirQualityModule;
 import com.example.weatherapp.di.module.CohereModule;
+import com.example.weatherapp.di.module.SearchCityModule;
 import com.example.weatherapp.di.module.WeatherModule;
 import com.example.weatherapp.di.module.LocationModule;
 
-public class MyApp extends Application implements WeatherFragmentDependencies, CohereFragmentDependencies, AirQualityFragmentDependencies, LocationFragmentDependencies {
+public class MyApp extends Application implements WeatherFragmentDependencies,
+        CohereFragmentDependencies, AirQualityFragmentDependencies,
+        LocationFragmentDependencies, SearchCityFragmentDependencies {
 
     private static AppComponent appComponent;
 
@@ -28,6 +33,7 @@ public class MyApp extends Application implements WeatherFragmentDependencies, C
                 .cohereModule(new CohereModule())
                 .airQualityModule(new AirQualityModule())
                 .locationModule(new LocationModule(this))
+                .searchCityModule(new SearchCityModule())
                 .build();
     }
 
@@ -48,6 +54,10 @@ public class MyApp extends Application implements WeatherFragmentDependencies, C
     @Override
     public LocationViewModelFactory provideLocationViewModelFactory() {
         return appComponent.provideLocationViewModelFactory();
+    }
+    @Override
+    public SearchCityViewModelFactory provideSearchCityViewModelFactory() {
+        return appComponent.provideSearchCityViewModelFactory();
     }
 }
 

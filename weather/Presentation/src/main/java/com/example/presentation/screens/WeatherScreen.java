@@ -18,7 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.domain.model.AirQualityResponse;
+import com.example.domain.model.airQualityModels.AirQualityResponse;
 import com.example.domain.model.weatherModels.Hourly;
 import com.example.domain.model.weatherModels.Result;
 import com.example.domain.model.weatherModels.WeatherResponse;
