@@ -1,6 +1,6 @@
 package com.example.data.repoImpl;
 
-import android.util.Log;
+
 
 import com.example.data.mapper.cohereApiMapper.CohereResponseMapper;
 import com.example.data.model.cohereModels.CohereRequest;
@@ -29,15 +29,18 @@ public class CohereRepositoryImpl implements CohereRepo {
         Call<CohereResponse> call = dataSource.generateText(request);
         try {
             Response<CohereResponse> response = call.execute();
+
             if (response.isSuccessful() && response.body() != null) {
+
               return Result.success(CohereResponseMapper.mapToSDomain(response.body()));
+
             } else {
 
-               return Result.error("API Error");
+               return Result.error("Something went wrong");
             }
         } catch (IOException e) {
 
-            return Result.error("Network Error");
+            return Result.error("Check your internet connection");
         }
 
     }

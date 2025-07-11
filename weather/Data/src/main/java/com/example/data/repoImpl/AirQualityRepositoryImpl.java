@@ -29,13 +29,16 @@ public class AirQualityRepositoryImpl implements AirQualityRepo {
             ).execute();
 
             if (response.isSuccessful() && response.body() != null) {
+
                 return Result.success(AirQualityResponseMapper.toDomainModel(response.body()));
             } else {
-                return Result.error("API error");
+
+                return Result.error("Something went wrong");
             }
 
         } catch (IOException e) {
-            return Result.error("Network error");
+
+            return Result.error("Check your internet connection");
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.presentation.utils;
 
+import android.util.Log;
+
 import com.example.presentation.R;
 
 import java.util.Collections;
@@ -71,7 +73,11 @@ public class WeatherIconMapper {
     }
 
     public static int getIconRes(String description) {
-        return descriptionToIconMap.get(description);
+
+        if(descriptionToIconMap.get(description)!=null)
+             return descriptionToIconMap.get(description);
+        else
+            return R.drawable.w_ic25;
     }
 
 

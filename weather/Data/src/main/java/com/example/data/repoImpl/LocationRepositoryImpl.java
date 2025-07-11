@@ -15,8 +15,6 @@ import com.google.android.gms.location.LocationServices;
 
 import androidx.core.location.LocationManagerCompat;
 
-import static androidx.core.location.LocationManagerCompat.isLocationEnabled;
-
 public class LocationRepositoryImpl implements LocationRepo {
 
     private final Context appContext;
@@ -29,6 +27,7 @@ public class LocationRepositoryImpl implements LocationRepo {
     public void getCurrentLocation(LocationCallback2 callback) {
 
         if (!isLocationEnabled(appContext)) {
+
             callback.onFailure("Please make sure location services are enabled.");
             return;
         }
@@ -70,6 +69,7 @@ public class LocationRepositoryImpl implements LocationRepo {
 
         client.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
     }
+
     private boolean isLocationEnabled(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         return LocationManagerCompat.isLocationEnabled(locationManager);

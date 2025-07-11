@@ -4,6 +4,7 @@ import com.example.data.model.weatherModels.Daily;
 
 public class DailyMapper {
     public static com.example.domain.model.weatherModels.Daily toDomain(Daily dataDaily) {
+
         if (dataDaily == null) return null;
 
         return new com.example.domain.model.weatherModels.Daily(
@@ -14,7 +15,6 @@ public class DailyMapper {
                 dataDaily.sunset,
                 dataDaily.uv_index_max,
                 dataDaily.weathercode
-                // ضيف باقي الحقول
         );
     }
 }

@@ -1,6 +1,5 @@
 package com.example.data.repoImpl;
 
-import android.util.Log;
 
 import com.example.data.mapper.weatherMapper.WeatherMapper;
 import com.example.data.model.weatherModels.WeatherResponse;
@@ -36,16 +35,15 @@ public class WeatherRepositoryImpl implements WeatherRepository {
             ).execute();
 
             if (response.isSuccessful() && response.body() != null) {
+
                 return Result.success(WeatherMapper.toDomainModel(response.body()));
             } else {
-                Log.e("WeatherRepository", "API Error: " + response.code());
-                return Result.error("api error");
-            }
+
+                return Result.error("Something went wrong");            }
 
         } catch (IOException e) {
-           // e.printStackTrace();
-            Log.e("WeatherRepository", "API exception: " + e.getMessage());
-            return Result.error("network error");
+
+            return Result.error("Check your internet connection");
         }
     }
 }

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 public class AirQualityResponseMapper {
 
     public static AirQualityResponse toDomainModel(com.example.data.model.airQualityModels.AirQualityResponse response) {
+
         if (response != null && response.hourly != null) {
+
             return new AirQualityResponse(
                     response.hourly.time,
                     response.hourly.pm10,
@@ -18,6 +20,7 @@ public class AirQualityResponseMapper {
                     response.hourly.sulphur_dioxide
             );
         } else {
+
             return new AirQualityResponse(
                     new ArrayList<>(),
                     new ArrayList<>(),
